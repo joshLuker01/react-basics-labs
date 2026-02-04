@@ -18,10 +18,11 @@ function App() {
     ]
   });
 
-  const [ formState, setFormState ] = useState({
+  const [formState, setFormState] = useState({
     title: "",
     description: "",
-    deadline: ""
+    deadline: "",
+    priority: "low"
   });
 
 
@@ -29,31 +30,34 @@ function App() {
   const doneHandler = (taskIndex) => {
     const tasks = [...taskState.tasks];
     tasks[taskIndex].done = !tasks[taskIndex].done;
-    setTaskState({tasks});
+    setTaskState({ tasks });
     console.log(`${taskIndex} ${tasks[taskIndex].done}`);
   }
 
-    const deleteHandler = (taskIndex) => {
+  const deleteHandler = (taskIndex) => {
     const tasks = [...taskState.tasks];
     tasks.splice(taskIndex, 1);
-    setTaskState({tasks});
-  } 
+    setTaskState({ tasks });
+  }
 
-    const formChangeHandler = (event) => {
-    let form = {...formState};
+  const formChangeHandler = (event) => {
+    let form = { ...formState };
 
-    switch(event.target.name) {
+    switch (event.target.name) {
       case "title":
-          form.title = event.target.value;
-          break;
+        form.title = event.target.value;
+        break;
       case "description":
-          form.description = event.target.value;
-          break;
+        form.description = event.target.value;
+        break;
       case "deadline":
-          form.deadline = event.target.value;
-          break;
+        form.deadline = event.target.value;
+        break;
+      case "priority":
+        form.priority = event.target.value;
+        break;
       default:
-          form = formState;
+        form = formState;
     }
     setFormState(form);
   }
@@ -62,19 +66,19 @@ function App() {
     event.preventDefault();
 
     const tasks = [...taskState.tasks];
-    const form = {...formState};
+    const form = { ...formState };
 
     form.id = uuidv4();
-    
+
     tasks.push(form);
-    setTaskState({tasks});
+    setTaskState({ tasks });
   }
 
 
   return (
     <div className="container">
       <h1>Tasky</h1>
-      {taskState.tasks.map((task, index) => (  
+      {taskState.tasks.map((task, index) => (
         <Task
           title={task.title}
           description={task.description}
@@ -83,12 +87,12 @@ function App() {
           priority={task.priority}
           done={task.done}
           markDone={() => doneHandler(index)}
-          deleteTask = {() => deleteHandler(index)}
+          deleteTask={() => deleteHandler(index)}
 
         />
       ))}
 
-    <AddTaskForm submit={formSubmitHandler} change={formChangeHandler} />
+      <AddTaskForm submit={formSubmitHandler} change={formChangeHandler} />
 
 
 
