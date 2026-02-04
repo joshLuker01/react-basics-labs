@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
+import AddTaskForm from './components/Form';
+
+
 import './App.css';
 import Task from './components/Task';
+
+
 
 function App() {
   const [taskState, setTaskState] = useState({
@@ -41,7 +46,7 @@ function App() {
         />
       ))}
 
-
+ <AddTaskForm />
 
     </div>
   );
